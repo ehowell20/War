@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class WarDriver
 {
     public static void main(String[] args)
@@ -7,6 +5,8 @@ public class WarDriver
         int card = 0;
         // creates new deck of cards
         Cards deck = new Cards();
+        // shuffles deck
+        deck.shuffleCards();
         // picks a random card
         card = deck.pickCard();
         // if card value is 1, 11, 12, or 13 show face letter (A, J, Q, K)
