@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Cards
 {
     // creates arraylist
-    ArrayList<Integer> cards = new ArrayList<Integer>();
+    ArrayList<Integer> cardsList = new ArrayList<Integer>();
     // creates a deck of 52 cards
     public Cards()
     {
@@ -12,16 +12,17 @@ public class Cards
         {
             for (int j = 1; j <= 4; j++)
             {
-                cards.add(i);
+                cardsList.add(i);
             }
         }
     }
     public int pickCard()
     {
-        // pick random card from arraylist
-        // store in temp int
+        // pick card from arraylist
+        
         // remove chosen card from arraylist
-        // return temp int
+        
+        // return card
         return 0;
     }
 }
