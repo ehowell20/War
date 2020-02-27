@@ -31,4 +31,20 @@ public class Cards
         // return card
         return card;
     }
+    // returns numbers of chances player has to place royal
+    public int cardChance(int card)
+    {
+        switch (card)
+        {
+            case 1:
+                return 4;
+            case 11:
+                return 1;
+            case 12:
+                return 2;
+            case 13:
+                return 3;
+        }
+        return 0;
+    }
 }
