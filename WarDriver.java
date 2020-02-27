@@ -32,34 +32,72 @@ public class WarDriver
             // print card
             isRoyal = printCard(card);
             // while royals are played, players alternate playing cards
-            // mark that comp plays first royal round
+            // mark that isHuman = false since comp plays first royal round
             isHuman = false;
             while (isRoyal)
             {
                 chances = deck.cardChance(card);
-                for (int i = 0; i < chances; i++)
+                while (chances > 0)
                 {
                     pause();
                     // print card
                     isRoyal = printCard(card);
+                    // if royal, exit while loop
+                    if (isRoyal)
+                    {
+                        break;
+                    }
+                    chances--;
                 }
+                // marks who is playing each round (will switch everytime another royal is placed)
+                isHuman = !isHuman;
+            }
+            // if human loses, give pile to comp
+            if (isHuman)
+            {
+                compCardsWon = 0;
+            }
+            // if comp loses, give pile to human
+            else
+            {
+                playerCardsWon = 0;
             }
             // computer turn
             // picks a random card
             card = deck.pickCard();
             // print card
             isRoyal = printCard(card);
+            // set isHuman to true since first move after royal must be human
             // while royals are played, players alternate playing cards
             while (isRoyal)
             {
                 // updates number of chances
                 chances = deck.cardChance(card);
-                for (int i = 0; i < chances; i++)
+                System.out.println("You have " + chances + " tries to place down a royal");
+                while (chances > 0)
                 {
                     pause();
                     // print card
                     isRoyal = printCard(card);
+                    // if royal, exit while loop
+                    if (isRoyal)
+                    {
+                        break;
+                    }
+                    chances--;
                 }
+                // marks who is playing each round (will switch everytime another royal is placed)
+                isHuman = !isHuman;
+            }
+            // if human loses, give pile to comp
+            if (isHuman)
+            {
+                compCardsWon = 0;
+            }
+            // if comp loses, give pile to human
+            else
+            {
+                playerCardsWon = 0;
             }
         }
     }
