@@ -27,6 +27,8 @@ public class WarDriver
         {
             // player turn
             pause();
+            // marks that the human placed the card
+            System.out.print("Human: " );
             // picks a random card
             card = deck.pickCard();
             // print card
@@ -37,9 +39,22 @@ public class WarDriver
             while (isRoyal)
             {
                 chances = deck.cardChance(card);
+                System.out.println("Chances for royal: " + chances);
                 while (chances > 0)
                 {
+                    System.out.println(chances);
                     pause();
+                    // play new random card
+                    card = deck.pickCard();
+                    // prints if human or computer card placed
+                    if (isHuman)
+                    {
+                        System.out.print("Human: ");
+                    }
+                    else
+                    {
+                        System.out.print("Computer: ");
+                    }
                     // print card
                     isRoyal = printCard(card);
                     // if royal, exit while loop
@@ -65,18 +80,33 @@ public class WarDriver
             // computer turn
             // picks a random card
             card = deck.pickCard();
+            // prints that computer placed the card
+            System.out.print("Computer: ");
             // print card
             isRoyal = printCard(card);
             // set isHuman to true since first move after royal must be human
+            isHuman = true;
             // while royals are played, players alternate playing cards
             while (isRoyal)
             {
                 // updates number of chances
                 chances = deck.cardChance(card);
-                System.out.println("You have " + chances + " tries to place down a royal");
+                System.out.println("Chances for royal: " + chances);
                 while (chances > 0)
                 {
+                    System.out.println(chances);
                     pause();
+                    // play new random card
+                    card = deck.pickCard();
+                    // prints if human or computer card placed
+                    if (isHuman)
+                    {
+                        System.out.print("Human: ");
+                    }
+                    else
+                    {
+                        System.out.print("Computer: ");
+                    }
                     // print card
                     isRoyal = printCard(card);
                     // if royal, exit while loop
@@ -104,7 +134,7 @@ public class WarDriver
     public static void pause()
     {
         Scanner in = new Scanner(System.in);
-        System.out.println("Press any key to place a card");
+        System.out.print("Press any key to place a card");
         in.nextLine();
     }
     public static boolean printCard(int card)
