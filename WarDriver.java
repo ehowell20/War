@@ -4,6 +4,7 @@ public class WarDriver
 {
     public static void main(String[] args)
     {
+        // if card = 0 no more cards in deck
         int card = 15;
         // number of cards in center pile
         int center = 0;
@@ -27,6 +28,7 @@ public class WarDriver
         Cards deck = new Cards();
         // shuffles deck
         deck.shuffleCards();
+        gameLoop:
         while (card != 0)
         {
             // player turn
@@ -35,11 +37,15 @@ public class WarDriver
             System.out.print("Human: " );
             // picks a random card
             card = deck.pickCard();
+            // if no cards in deck exit game loop
+            if (card == 0)
+            {
+                break gameLoop;
+            }
             // add one to number of cards in center pile
             center++;
             // print card
             isRoyal = printCard(card);
-            System.out.println(center);
             // while royals are played, players alternate playing cards
             // mark that isHuman = false since comp plays first royal round
             isHuman = false;
@@ -54,9 +60,13 @@ public class WarDriver
                     pause();
                     // play new random card
                     card = deck.pickCard();
+                    // if no cards in deck exit game loop
+                    if (card == 0)
+                    {
+                        break gameLoop;
+                    }
                     // add one to number of cards in center pile
                     center++;
-                    System.out.println(center);
                     // prints if human or computer card placed
                     if (isHuman)
                     {
@@ -108,13 +118,17 @@ public class WarDriver
             // computer turn
             // picks a random card
             card = deck.pickCard();
+            // if no cards in deck exit game loop
+            if (card == 0)
+            {
+                break gameLoop;
+            }
             // add one to number of cards in center pile
             center++;
             // prints that computer placed the card
             System.out.print("Computer: ");
             // print card
             isRoyal = printCard(card);
-            System.out.println(center);
             // set isHuman to true since first move after royal must be human
             isHuman = true;
             // while royals are played, players alternate playing cards
@@ -130,9 +144,13 @@ public class WarDriver
                     pause();
                     // play new random card
                     card = deck.pickCard();
+                    // if no cards in deck exit game loop
+                    if (card == 0)
+                    {
+                        break gameLoop;
+                    }
                     // add one to number of cards in center pile
                     center++;
-                    System.out.println(center);
                     // prints if human or computer card placed
                     if (isHuman)
                     {
@@ -182,6 +200,7 @@ public class WarDriver
                 hasWon = true;
             }
         }
+        System.out.println("No more cards in deck");
         if (playerCardsWon > compCardsWon)
         {
             System.out.println("Human Wins!");
@@ -198,7 +217,6 @@ public class WarDriver
     public static void pause()
     {
         Scanner in = new Scanner(System.in);
-        System.out.print("Press any key to place a card");
         in.nextLine();
     }
     public static boolean printCard(int card)
