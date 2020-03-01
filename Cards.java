@@ -24,6 +24,11 @@ public class Cards
     }
     public int pickCard()
     {
+        // checks if there are still cards in the arraylist
+        if (cardsList.isEmpty())
+        {
+            return 0;
+        }
         // pick card from arraylist
         int card = cardsList.get(0);
         // remove chosen card from arraylist

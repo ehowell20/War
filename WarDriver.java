@@ -4,7 +4,9 @@ public class WarDriver
 {
     public static void main(String[] args)
     {
-        int card = 0;
+        int card = 15;
+        // number of cards in center pile
+        int center = 0;
         // player has half deck
         int playerCards = 26;
         // player won cards
@@ -15,7 +17,9 @@ public class WarDriver
         int compCardsWon = 0;
         // number of cards player can put down to try and put down a royal
         int chances = 0;
-        boolean hasWon = false;
+        // true if a player has placed down a royal within the chances allowed
+        boolean hasWon = true;
+        // true if royal card played
         boolean isRoyal = false;
         // true if human turn
         boolean isHuman = false;
@@ -23,7 +27,7 @@ public class WarDriver
         Cards deck = new Cards();
         // shuffles deck
         deck.shuffleCards();
-        while (!hasWon)
+        while (card != 0)
         {
             // player turn
             pause();
@@ -31,8 +35,11 @@ public class WarDriver
             System.out.print("Human: " );
             // picks a random card
             card = deck.pickCard();
+            // add one to number of cards in center pile
+            center++;
             // print card
             isRoyal = printCard(card);
+            System.out.println(center);
             // while royals are played, players alternate playing cards
             // mark that isHuman = false since comp plays first royal round
             isHuman = false;
@@ -42,10 +49,14 @@ public class WarDriver
                 System.out.println("Chances for royal: " + chances);
                 while (chances > 0)
                 {
-                    System.out.println(chances);
+                    // resets royal flag
+                    hasWon = false;
                     pause();
                     // play new random card
                     card = deck.pickCard();
+                    // add one to number of cards in center pile
+                    center++;
+                    System.out.println(center);
                     // prints if human or computer card placed
                     if (isHuman)
                     {
@@ -60,30 +71,50 @@ public class WarDriver
                     // if royal, exit while loop
                     if (isRoyal)
                     {
+                        // flags that a player has put down a royal in time
+                        hasWon = true;
                         break;
                     }
                     chances--;
                 }
-                // marks who is playing each round (will switch everytime another royal is placed)
-                isHuman = !isHuman;
+                if (hasWon)
+                {
+                    // marks who is playing each round (will switch everytime another royal is placed)
+                    isHuman = !isHuman;
+                }
             }
-            // if human loses, give pile to comp
-            if (isHuman)
+            // if human loses, give pile value to comp
+            // checks if human last played and if a royal was not played in time
+            if (isHuman && !hasWon)
             {
-                compCardsWon = 0;
+                compCardsWon = center;
+                System.out.println("Computer won " + compCardsWon + " cards!");
+                // reset pile value
+                center = 0;
+                // reset no royal played flag
+                hasWon = true;
             }
-            // if comp loses, give pile to human
-            else
+            // if comp loses, give pile value to human
+            // checks if human last played and if a royal was not played in time
+            else if (!isHuman && !hasWon)
             {
-                playerCardsWon = 0;
+                playerCardsWon = center;
+                System.out.println("Human won " + playerCardsWon + " cards!");
+                // reset pile value
+                center = 0;
+                // reset no royal played flag
+                hasWon = true;
             }
             // computer turn
             // picks a random card
             card = deck.pickCard();
+            // add one to number of cards in center pile
+            center++;
             // prints that computer placed the card
             System.out.print("Computer: ");
             // print card
             isRoyal = printCard(card);
+            System.out.println(center);
             // set isHuman to true since first move after royal must be human
             isHuman = true;
             // while royals are played, players alternate playing cards
@@ -94,10 +125,14 @@ public class WarDriver
                 System.out.println("Chances for royal: " + chances);
                 while (chances > 0)
                 {
-                    System.out.println(chances);
+                    // resets royal flag
+                    hasWon = false;
                     pause();
                     // play new random card
                     card = deck.pickCard();
+                    // add one to number of cards in center pile
+                    center++;
+                    System.out.println(center);
                     // prints if human or computer card placed
                     if (isHuman)
                     {
@@ -112,23 +147,52 @@ public class WarDriver
                     // if royal, exit while loop
                     if (isRoyal)
                     {
+                        // flags that a player has put down a royal in time
+                        hasWon = true;
                         break;
                     }
                     chances--;
                 }
-                // marks who is playing each round (will switch everytime another royal is placed)
-                isHuman = !isHuman;
+                if (hasWon)
+                {
+                    // marks who is playing each round (will switch everytime another royal is placed)
+                    isHuman = !isHuman;
+                }
             }
             // if human loses, give pile to comp
-            if (isHuman)
+            // checks if human last played and if a royal was not played in time
+            if (isHuman && !hasWon)
             {
-                compCardsWon = 0;
+                compCardsWon = center;
+                System.out.println("Computer won " + compCardsWon + " cards!");
+                // reset pile value
+                center = 0;
+                // reset no royal played flag
+                hasWon = true;
             }
             // if comp loses, give pile to human
-            else
+            // checks if human last played and if a royal was not played in time
+            else if (!isHuman && !hasWon)
             {
-                playerCardsWon = 0;
+                playerCardsWon = center;
+                System.out.println("Human won " + playerCardsWon + " cards!");
+                // reset pile value
+                center = 0;
+                // reset no royal played flag
+                hasWon = true;
             }
+        }
+        if (playerCardsWon > compCardsWon)
+        {
+            System.out.println("Human Wins!");
+        }
+        else if (playerCardsWon < compCardsWon)
+        {
+            System.out.println("Computer Wins!");
+        }
+        else
+        {
+            System.out.println("Draw!");
         }
     }
     public static void pause()
