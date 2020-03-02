@@ -28,13 +28,15 @@ public class WarDriver
         Cards deck = new Cards();
         // shuffles deck
         deck.shuffleCards();
+        System.out.println("Welcome! This game is Egyptian War without the slapping aspect");
+        System.out.println("You can win cards when the other player cannot match the royal you put down");
+        System.out.println("The number of chances you have will be told once a royal is put down");
+        System.out.println("The cards won will be compared at the end and the winner will be announced");
         gameLoop:
         while (card != 0)
         {
             // player turn
             pause();
-            // marks that the human placed the card
-            System.out.print("Human: " );
             // picks a random card
             card = deck.pickCard();
             // if no cards in deck exit game loop
@@ -44,6 +46,8 @@ public class WarDriver
             }
             // add one to number of cards in center pile
             center++;
+            // prints that the human placed the card
+            System.out.print("Human: " );
             // print card
             isRoyal = printCard(card);
             // while royals are played, players alternate playing cards
@@ -183,6 +187,7 @@ public class WarDriver
             {
                 compCardsWon = center;
                 System.out.println("Computer won " + compCardsWon + " cards!");
+                System.out.println();
                 // reset pile value
                 center = 0;
                 // reset no royal played flag
@@ -217,6 +222,7 @@ public class WarDriver
     public static void pause()
     {
         Scanner in = new Scanner(System.in);
+        System.out.println("Press enter to play card");
         in.nextLine();
     }
     public static boolean printCard(int card)
